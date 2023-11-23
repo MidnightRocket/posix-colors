@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-SRC_DIR="$(realpath -- "$(dirname -- "$0")")"
+SRC_DIR="$(realpath "$(dirname -- "$0")")"
 
 
 # In POSIX comliant script is '.' equivlant to the 'source' command
