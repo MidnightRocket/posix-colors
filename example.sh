@@ -50,3 +50,32 @@ print "\n\n--- ${T_BOLD}Combinations${TR} ---"
 print "${T_BOLD}${TF_RED}Bold red${TR}           ${T_BLINK}${TF_MAGENTA}Blink magenta${TR}"
 print "${T_DIM}${TF_GREEN}Dim green${TR}          ${T_REVERSE}${TF_CYAN}Reverse cyan${TR}"
 print "${T_UNDERLINE}${TF_YELLOW}Underline yellow${TR}   ${TB_BRIGHT_GRAY}${TF_BLUE}BLue on bright_gray${TR}"
+
+
+
+print "\n\n--- ${T_BOLD}8 BIT COLOR TEST${TR} ----"
+# Adapted from https://askubuntu.com/a/821163
+i=0 
+while [ "$i" -lt 256 ]; do
+	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
+	if [ "$i" = 15 ] || [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
+        printf "\n";
+    fi
+	i="$((i+1))"
+done
+
+
+
+print "\n\n--- ${T_BOLD}24 BIT TRUE COLOR TEST${TR} ----"
+# Inspired by https://unix.stackexchange.com/a/404415
+i=0
+COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
+while [ "$i" -lt "$COLUMNS" ]; do
+	r=$((255-(i*255/COLUMNS)));
+	g=$((i*510/COLUMNS));
+	b=$((i*255/COLUMNS));
+	if [ "$g" -gt 255 ]; then g=$((510-g)); fi
+	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	i="$((i+1))"
+done
+print

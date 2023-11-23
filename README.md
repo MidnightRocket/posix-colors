@@ -52,3 +52,5 @@ USE_COLOR=false ./example.sh
 - [Stackoverflow: List of ANSI color Escape sequences](https://web.archive.org/web/20231123195802/https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences/33206814#33206814)
 - [Bash tips: Colors and formatting](https://web.archive.org/web/20231123195802/https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences/33206814#33206814)
 - [Shell command language#Parameter Expansion](https://web.archive.org/web/20231123113114/https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06_02)
+- [AskUbuntu Generate 8bit test pattern](https://web.archive.org/web/20231123230122/https://askubuntu.com/questions/821157/print-a-256-color-test-pattern-in-the-terminal/821163#821163)
+- [Stackexchange Generate 24 bit test pattern](https://web.archive.org/web/20231123233540/https://unix.stackexchange.com/questions/404414/print-true-color-24-bit-test-pattern/404415#404415)
