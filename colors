@@ -1,8 +1,12 @@
 #!/bin/sh
 # shellcheck disable=SC2034 # Allow unused variables
-set -eu
 
-useColor() {
+# Strict shell execution commented out.
+# People sourcing this file may not expect/want strict shell exection.
+# See: https://unix.stackexchange.com/a/595254
+# set -eu
+
+isColorSupported() {
 	if [ "${FORCE_COLOR:-"false"}" = "true" ] || [ -t 1 ] && [ -t 2 ] && [ "${USE_COLOR:-"true"}" = "true" ]; then
 		return 0
 	else
@@ -10,10 +14,13 @@ useColor() {
 	fi
 }
 
-if useColor; then USE_COLOR=true; else unset USE_COLOR; fi
+if isColorSupported; then USE_COLOR=true; else unset USE_COLOR; fi
 
-
-T_ESC="${USE_COLOR+"\033["}"
+# Need to put this in variable on its own.
+# It cannot be directly in parameter expansion below because then it won't work in bash and ksh
+# ¯\_(ツ)_/¯
+_T_ESC_="\033["
+T_ESC="${USE_COLOR+"$_T_ESC_"}"
 
 ###   -----   RESET FORMAT OR COLOR   -----   ###
 TR="${T_ESC}${USE_COLOR+"0m"}"
@@ -50,7 +57,8 @@ TB_CYAN="${T_ESC}${USE_COLOR+"46m"}"            TB_LIGHT_CYAN="${T_ESC}${USE_COL
 TB_DARK_GRAY="${T_ESC}${USE_COLOR+"100m"}"      TB_LIGHT_GRAY="${T_ESC}${USE_COLOR+"47m"}"
 
 
-# Helper functions for echoing text.
+# Helper functions for echoing/printing text.
+# printf is fully posix compliant and is generally safer than echo.
 # These auto resets formating
 stderr() {
 	printf "%b\n${TR}" "$@" 1>&2
@@ -58,64 +66,3 @@ stderr() {
 print() {
 	printf "%b\n${TR}" "$@"
 }
-
-
-
-
-print "--- ${T_BOLD}Formatting${TR} ---"
-
-print "${TR}${T_BOLD}BOLD${TR} reset"
-print "${TR}${T_DIM}DIM${TR} reset"
-print "${TR}${T_UNDERLINE}UNDERLINE${TR} reset"
-print "${TR}${T_BLINK}BLINK${TR} reset"
-print "${TR}${T_REVERSE}REVERSE${TR} reset"
-print "${TR}${T_HIDDEN}HIDDEN${TR} reset"
-
-
-print "\n\n--- ${T_BOLD}Colors${TR} ---"
-
-print "${TF_BLACK}black${TR}\t\treset"
-print "${TF_RED}red${TR}\t\treset"
-print "${TF_GREEN}green${TR}\t\treset"
-print "${TF_YELLOW}yellow${TR}\t\treset"
-print "${TF_BLUE}blue${TR}\t\treset"
-print "${TF_MAGENTA}magenta${TR}\t\treset"
-print "${TF_CYAN}cyan${TR}\t\treset"
-print "${TF_LIGHT_GRAY}light_gray${TR}\treset"
-print "${TF_DARK_GRAY}dark_gray${TR}\treset"
-print "${TF_LIGHT_RED}light_red${TR}\treset"
-print "${TF_LIGHT_GREEN}light_green${TR}\treset"
-print "${TF_LIGHT_YELLOW}light_yellow${TR}\treset"
-print "${TF_LIGHT_BLUE}light_blue${TR}\treset"
-print "${TF_LIGHT_MAGENTA}light_magenta${TR}\treset"
-print "${TF_LIGHT_CYAN}light_cyan${TR}\treset"
-print "${TF_WHITE}white${TR}\t\treset"
-
-
-print "\n\n--- ${T_BOLD}Background${TR} ---"
-
-print "${TB_BLACK}black${TR}\t\treset"
-print "${TB_RED}red${TR}\t\treset"
-print "${TB_GREEN}green${TR}\t\treset"
-print "${TB_YELLOW}yellow${TR}\t\treset"
-print "${TB_BLUE}blue${TR}\t\treset"
-print "${TB_MAGENTA}magenta${TR}\t\treset"
-print "${TB_CYAN}cyan${TR}\t\treset"
-print "${TB_LIGHT_GRAY}light_gray${TR}\treset"
-print "${TB_DARK_GRAY}dark_gray${TR}\treset"
-print "${TB_LIGHT_RED}light_red${TR}\treset"
-print "${TB_LIGHT_GREEN}light_green${TR}\treset"
-print "${TB_LIGHT_YELLOW}light_yellow${TR}\treset"
-print "${TB_LIGHT_BLUE}light_blue${TR}\treset"
-print "${TB_LIGHT_MAGENTA}light_magenta${TR}\treset"
-print "${TB_LIGHT_CYAN}light_cyan${TR}\treset"
-print "${TB_WHITE}white${TR}\t\treset"
-
-
-print "\n\n--- ${T_BOLD}Combinations${TR} ---"
-print "${T_BOLD}${TF_RED}Bold red${TR}"
-print "${T_DIM}${TF_GREEN}Dim green${TR}"
-print "${T_UNDERLINE}${TF_YELLOW}Underline yellow${TR}"
-print "${T_BLINK}${TF_MAGENTA}Blink magenta${TR}"
-print "${T_REVERSE}${TF_CYAN}Reverse cyan${TR}"
-print "${TB_LIGHT_GRAY}${TF_BLUE}BLue on light_gray${TR}"
