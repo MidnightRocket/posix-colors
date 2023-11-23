@@ -49,5 +49,6 @@ USE_COLOR=false ./example.sh
 
 
 # Resources
-- [Bash tips: Colors and formatting](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
-- [Shell command language#Parameter Expansion](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06_02)
+- [Stackoverflow: List of ANSI color Escape sequences](https://web.archive.org/web/20231123195802/https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences/33206814#33206814)
+- [Bash tips: Colors and formatting](https://web.archive.org/web/20231123195802/https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences/33206814#33206814)
+- [Shell command language#Parameter Expansion](https://web.archive.org/web/20231123113114/https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06_02)
