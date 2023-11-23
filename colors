@@ -63,8 +63,8 @@ TB_DARK_GRAY="${T_ESC}${USE_COLOR+"100m"}"      TB_BRIGHT_GRAY="${T_ESC}${USE_CO
 # printf is fully posix compliant and is generally safer than echo.
 # These auto resets formating
 stderr() {
-	printf "%b\n${TR}" "$@" 1>&2
+	printf "%b${TR}\n" "$@" 1>&2
 }
 print() {
-	printf "%b\n${TR}" "$@"
+	printf "%b${TR}\n" "$@"
 }
