@@ -1,9 +1,10 @@
 # posix-colors
 Colors for POSIX compliant shell scripts without any dependencies or fuss. 
-Because it is POSIX compliant, all the shells are supported. E.g. Bash, Zsh, SH, Ksh and Dash.
-
+Because it is POSIX compliant, all the shells are supported. E.g. Bash, Zsh, SH, Ksh and Dash.  
 Basic formatting such as bold and underline is also supported!
 
+
+[![asciicast](https://asciinema.org/a/622976.svg)](https://asciinema.org/a/622976)
 
 The script automatically disables colors when output is NOT a terminal. 
 E.g. when outputting to a file no weird escape sequences (`\033[3m`) is included. 
