@@ -124,7 +124,10 @@ print_line "v" "0" "0"
 print_line "0" "v" "0"
 print_line "0" "0" "v"
 
-
+print
+print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v"
+print_line "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v" "_MAX_VALUE - v"
+print_line "v" "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2"
 # ROWS="$(stty size | awk '{print $1}' || echo 50)"
 # y=0
 # while [ "$y" -lt "$ROWS" ]; do
