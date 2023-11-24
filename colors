@@ -78,8 +78,11 @@ _t_advanced_color_helper() {
 
 _t_is_valid_int() {
 	_T_VALUE="$1"
-	if [ "$_T_VALUE" -lt 0 ] || [ "$_T_VALUE" -gt 255 ]; then
-		printf "%b\n" "'$_T_VALUE' is out of range. Valid within 0-255" 1>&2
+	_T_LABEL="${2:+"Option \'$2\': "}"
+	_T_MIN_VALUE=0
+	_T_MAX_VALUE=255
+	if [ "$_T_VALUE" -lt "$_T_MIN_VALUE" ] || [ "$_T_VALUE" -gt "$_T_MAX_VALUE" ]; then
+		printf "%b\n" "${_T_LABEL}${_T_VALUE} is out of range. Valid within ${_T_MIN_VALUE}-${_T_MAX_VALUE}" 1>&2
 		return 1;
 	fi
 }
@@ -99,9 +102,9 @@ t_rgb() {
 	_T_COLOR_G="$3"
 	_T_COLOR_R="$2"
 	_T_TYPE="$1"
-	_t_is_valid_int "$_T_COLOR_R" || return 1
-	_t_is_valid_int "$_T_COLOR_G" || return 1
-	_t_is_valid_int "$_T_COLOR_B" || return 1
+	_t_is_valid_int "$_T_COLOR_R" "R" || return 1
+	_t_is_valid_int "$_T_COLOR_G" "G" || return 1
+	_t_is_valid_int "$_T_COLOR_B" "B" || return 1
 	printf "%s" "$(_t_advanced_color_helper "$_T_TYPE" "2;${_T_COLOR_R};${_T_COLOR_G};${_T_COLOR_B}")"
 }
 

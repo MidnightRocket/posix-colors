@@ -93,39 +93,22 @@ while [ "$i" -lt "$COLUMNS" ]; do
 done
 print
 print
-i=0
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=$((i*255/COLUMNS));
-	g=$((i*255/COLUMNS));
-	b=$((i*255/COLUMNS));
-	_print_test_block "$r" "$g" "$b"
-	i="$((i+1))"
-done
-print
-i=0
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=$((i*255/COLUMNS));
-	g=0
-	b=0
-	_print_test_block "$r" "$g" "$b"
-	i="$((i+1))"
-done
-print
-i=0
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=0
-	g=$((i*255/COLUMNS));
-	b=0
-	_print_test_block "$r" "$g" "$b"
-	i="$((i+1))"
-done
-print
-i=0
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=0
-	g=0
-	b=$((i*255/COLUMNS));
-	_print_test_block "$r" "$g" "$b"
-	i="$((i+1))"
-done
-print
+
+print_line() {
+	_r_expression="$1"
+	_g_expression="$2"
+	_b_expression="$3"
+	i=0
+	while [ "$i" -lt "$COLUMNS" ]; do
+		r=$((_r_expression));
+		g=$((_g_expression));
+		b=$((_b_expression));
+		_print_test_block "$r" "$g" "$b"
+		i="$((i+1))"
+	done
+	print
+}
+print_line "i*255/COLUMNS" "i*255/COLUMNS" "i*255/COLUMNS"
+print_line "i*255/COLUMNS" "0" "0"
+print_line "0" "i*255/COLUMNS" "0"
+print_line "0" "0" "i*255/COLUMNS"
