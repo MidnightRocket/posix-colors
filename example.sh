@@ -82,33 +82,52 @@ _print_test_block() {
 print "\n\n--- ${T_BOLD}24 BIT TRUE COLOR TEST${TR} ----"
 # Inspired by https://unix.stackexchange.com/a/404415
 COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
-i=0
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=$((255-(i*255/COLUMNS)));
-	g=$((i*510/COLUMNS));
-	b=$((i*255/COLUMNS));
-	if [ "$g" -gt 255 ]; then g=$((510-g)); fi
-	_print_test_block "$r" "$g" "$b"
-	i="$((i+1))"
-done
-print
-print
-
-print_line() {
-	_r_expression="$1"
-	_g_expression="$2"
-	_b_expression="$3"
+print_rgb_gradient() {
+	_MAX_VALUE="${1:-"255"}"
 	i=0
 	while [ "$i" -lt "$COLUMNS" ]; do
-		r=$((_r_expression));
-		g=$((_g_expression));
-		b=$((_b_expression));
+		v=$((i * _MAX_VALUE / COLUMNS))
+		r=$((_MAX_VALUE - v));
+		g=$((2*v));
+		b=$((v));
+		if [ "$g" -gt "$_MAX_VALUE" ]; then g=$((_MAX_VALUE * 2 - g)); fi
 		_print_test_block "$r" "$g" "$b"
 		i="$((i+1))"
 	done
 	print
 }
-print_line "i*255/COLUMNS" "i*255/COLUMNS" "i*255/COLUMNS"
-print_line "i*255/COLUMNS" "0" "0"
-print_line "0" "i*255/COLUMNS" "0"
-print_line "0" "0" "i*255/COLUMNS"
+print_rgb_gradient
+
+print_line() {
+	_MAX_VALUE="${4:-"255"}"
+	x=0
+	while [ "$x" -lt "$COLUMNS" ]; do
+		# shellcheck disable=SC2034
+		v=$((x*_MAX_VALUE/COLUMNS))
+		r=$(($1));
+		g=$(($2));
+		b=$(($3));
+		_print_test_block "$r" "$g" "$b"
+		x="$((x+1))"
+	done
+	print
+}
+
+# Alternative RGB gradient printing
+print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v"
+
+# Grayscale
+print_line "v" "v" "v"
+
+# Individual RGB gradients
+print_line "v" "0" "0"
+print_line "0" "v" "0"
+print_line "0" "0" "v"
+
+
+# ROWS="$(stty size | awk '{print $1}' || echo 50)"
+# y=0
+# while [ "$y" -lt "$ROWS" ]; do
+# 	print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v" "$((255 - 255/ROWS*y))"
+# 	y="$((y+1))"
+# done
