@@ -58,7 +58,10 @@ print "\n\n--- ${T_BOLD}8 BIT COLOR TEST${TR} ----"
 i=0 
 while [ "$i" -lt 256 ]; do
 	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
-	if [ "$i" = 15 ] || [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
+	if [ "$i" = 15 ]; then
+		printf "\n\n";
+	fi
+	if [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
 		printf "\n";
 	fi
 	i="$((i+1))"
@@ -78,6 +81,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
 	i="$((i+1))"
 done
+print
 i=0
 COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
 while [ "$i" -lt "$COLUMNS" ]; do
