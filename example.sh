@@ -59,8 +59,8 @@ i=0
 while [ "$i" -lt 256 ]; do
 	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
 	if [ "$i" = 15 ] || [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
-        printf "\n";
-    fi
+		printf "\n";
+	fi
 	i="$((i+1))"
 done
 
@@ -75,6 +75,15 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	g=$((i*510/COLUMNS));
 	b=$((i*255/COLUMNS));
 	if [ "$g" -gt 255 ]; then g=$((510-g)); fi
+	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	i="$((i+1))"
+done
+i=0
+COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
+while [ "$i" -lt "$COLUMNS" ]; do
+	r=$((i*255/COLUMNS));
+	g=$((i*255/COLUMNS));
+	b=$((i*255/COLUMNS));
 	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
 	i="$((i+1))"
 done
