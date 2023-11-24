@@ -57,18 +57,25 @@ print "\n\n--- ${T_BOLD}8 BIT COLOR TEST${TR} ----"
 # Adapted from https://askubuntu.com/a/821163
 i=0 
 while [ "$i" -lt 256 ]; do
-	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
+	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR}" "$i"
 	if [ "$i" = 7 ]; then
 		printf "\n";
-	fi
-	if [ "$i" = 15 ]; then
+	elif [ "$i" = 15 ]; then
 		printf "\n\n";
-	fi
-	if [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
+	elif [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
 		printf "\n";
+	else
+		printf " "
 	fi
 	i="$((i+1))"
 done
+
+
+
+
+_print_test_block() {
+	printf "%b" "$(t_rgb bg "$1" "$2" "$3") "
+}
 
 
 
@@ -81,7 +88,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	g=$((i*510/COLUMNS));
 	b=$((i*255/COLUMNS));
 	if [ "$g" -gt 255 ]; then g=$((510-g)); fi
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	_print_test_block "$r" "$g" "$b"
 	i="$((i+1))"
 done
 print
@@ -91,7 +98,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	r=$((i*255/COLUMNS));
 	g=$((i*255/COLUMNS));
 	b=$((i*255/COLUMNS));
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	_print_test_block "$r" "$g" "$b"
 	i="$((i+1))"
 done
 print
@@ -100,7 +107,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	r=$((i*255/COLUMNS));
 	g=0
 	b=0
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	_print_test_block "$r" "$g" "$b"
 	i="$((i+1))"
 done
 print
@@ -109,7 +116,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	r=0
 	g=$((i*255/COLUMNS));
 	b=0
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	_print_test_block "$r" "$g" "$b"
 	i="$((i+1))"
 done
 print
@@ -118,7 +125,7 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	r=0
 	g=0
 	b=$((i*255/COLUMNS));
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	_print_test_block "$r" "$g" "$b"
 	i="$((i+1))"
 done
 print
