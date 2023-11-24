@@ -58,6 +58,9 @@ print "\n\n--- ${T_BOLD}8 BIT COLOR TEST${TR} ----"
 i=0 
 while [ "$i" -lt 256 ]; do
 	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
+	if [ "$i" = 7 ]; then
+		printf "\n";
+	fi
 	if [ "$i" = 15 ]; then
 		printf "\n\n";
 	fi
@@ -71,8 +74,8 @@ done
 
 print "\n\n--- ${T_BOLD}24 BIT TRUE COLOR TEST${TR} ----"
 # Inspired by https://unix.stackexchange.com/a/404415
-i=0
 COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
+i=0
 while [ "$i" -lt "$COLUMNS" ]; do
 	r=$((255-(i*255/COLUMNS)));
 	g=$((i*510/COLUMNS));
@@ -82,11 +85,38 @@ while [ "$i" -lt "$COLUMNS" ]; do
 	i="$((i+1))"
 done
 print
+print
 i=0
-COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
 while [ "$i" -lt "$COLUMNS" ]; do
 	r=$((i*255/COLUMNS));
 	g=$((i*255/COLUMNS));
+	b=$((i*255/COLUMNS));
+	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	i="$((i+1))"
+done
+print
+i=0
+while [ "$i" -lt "$COLUMNS" ]; do
+	r=$((i*255/COLUMNS));
+	g=0
+	b=0
+	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	i="$((i+1))"
+done
+print
+i=0
+while [ "$i" -lt "$COLUMNS" ]; do
+	r=0
+	g=$((i*255/COLUMNS));
+	b=0
+	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
+	i="$((i+1))"
+done
+print
+i=0
+while [ "$i" -lt "$COLUMNS" ]; do
+	r=0
+	g=0
 	b=$((i*255/COLUMNS));
 	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
 	i="$((i+1))"
