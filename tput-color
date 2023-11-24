@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+
+
+stderr() {
+    printf "%b\n" "$@" 1>&2
+}
+print() {
+    printf "%b\n" "$@"
+}
+
+#T_ESC="${USE_COLOR+"\033["}"
+
+TR="$(tput sgr0)"
+TR_F_COLOR="$(tput sgr0)"
+TR_B_COLOR="$(tput sgr0)"
+TR_BOLD="$(tput sgr0)"
+TR_DIM="$(tput sgr0)"
+TR_UNDERLINE="$(tput rmul)"
+TR_BLINK="$(tput sgr0)"
+TR_REVERSE="$(tput sgr0)"
+TR_HIDDEN="$(tput sgr0)"
+
+T_BOLD="$(tput bold)"
+T_DIM="$(tput dim)"
+T_UNDERLINE="$(tput smul)"
+T_BLINK="$(tput blink)"
+T_REVERSE="$(tput rev)"
+T_HIDDEN="$(tput invis)"
+
+set -eu
+
+
+print "${TR}${T_BOLD}BOLD${TR_BOLD} reset"
+print "${TR}${T_DIM}DIM${TR_DIM} reset"
+print "${TR}${T_UNDERLINE}UNDERLINE${TR_UNDERLINE} reset"
+print "${TR}${T_BLINK}BLINK${TR_BLINK} reset"
+print "${TR}${T_REVERSE}REVERSE${TR_REVERSE} reset"
+print "${TR}${T_HIDDEN}HIDDEN${TR_HIDDEN} reset"
