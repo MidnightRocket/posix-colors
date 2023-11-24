@@ -15,7 +15,7 @@ However this behaviour can be customised. [See below](#controlling-auto-coloring
 > [!TIP]
 > See [example.sh](example.sh) for how to use. 
 
-You can either simply copy the contents of [colors](colors#L9-L59) into your script.
+You can either simply copy the [contents of colors](colors#L9-L59) into your script.
 Or you can download this repo and source the file like so:
 ```sh
 . /path/to/colors
