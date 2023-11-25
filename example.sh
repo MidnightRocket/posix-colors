@@ -99,14 +99,15 @@ print_rgb_gradient() {
 print_rgb_gradient
 
 print_line() {
-	_MAX_VALUE="${4:-"255"}"
+	_MIN_VALUE="${4:-"0"}"
+	_MAX_VALUE="${5:-"255"}"
 	x=0
 	while [ "$x" -lt "$COLUMNS" ]; do
 		# shellcheck disable=SC2034
-		v=$((x*_MAX_VALUE/COLUMNS))
-		r=$(($1));
-		g=$(($2));
-		b=$(($3));
+		v=$((x*(_MAX_VALUE - _MIN_VALUE)/COLUMNS))
+		r=$((($1) + _MIN_VALUE));
+		g=$((($2) + _MIN_VALUE));
+		b=$((($3) + _MIN_VALUE));
 		_print_test_block "$r" "$g" "$b"
 		x="$((x+1))"
 	done
@@ -117,20 +118,27 @@ print_line() {
 print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v"
 
 # Grayscale
-print_line "v" "v" "v"
-
-# Individual RGB gradients
-print_line "v" "0" "0"
-print_line "0" "v" "0"
-print_line "0" "0" "v"
-
-print
-print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v"
-print_line "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v" "_MAX_VALUE - v"
-print_line "v" "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2"
-# ROWS="$(stty size | awk '{print $1}' || echo 50)"
-# y=0
-# while [ "$y" -lt "$ROWS" ]; do
-# 	print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v" "$((255 - 255/ROWS*y))"
-# 	y="$((y+1))"
-# done
+# print_line "v" "v" "v"
+# 
+# # Individual RGB gradients
+# print_line "v" "0" "0"
+# print_line "0" "v" "0"
+# print_line "0" "0" "v"
+# 
+# print
+# print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2 + _MIN_VALUE" "v"
+# print_line "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2 + _MIN_VALUE" "v" "_MAX_VALUE - v"
+# print_line "v" "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2 + _MIN_VALUE"
+ROWS="$(stty size | awk '{print $1}' || echo 50)"
+y="$ROWS"
+while [ "$y" -gt "0" ]; do
+	print_line "_MAX_VALUE - _MIN_VALUE - v" "(( ( (v*2) > (_MAX_VALUE - _MIN_VALUE) ) ? _MAX_VALUE - _MIN_VALUE  - v : v ) * 2)" "v" 0 "$((255 - 255/ROWS*y))"
+	y="$((y-1))"
+done
+y=0
+while [ "$y" -lt "$ROWS" ]; do
+	# print_line "_MAX_VALUE - v + _MIN_VALUE" "(( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2)" "v" "$((255/ROWS*y))" "255"
+	print_line "_MAX_VALUE - _MIN_VALUE - v" "(( ( (v*2) > (_MAX_VALUE - _MIN_VALUE) ) ? _MAX_VALUE - _MIN_VALUE  - v : v ) * 2)" "v" "$((255/ROWS*y))" "255"
+	# print_line "v" "v" "v" "$((255/ROWS*y))" "255"
+	y="$((y+1))"
+done
