@@ -9,7 +9,7 @@ SRC_DIR="$(realpath "$(dirname -- "$0")")"
 
 # In POSIX comliant script is '.' equivlant to the 'source' command
 # However if using bash or zsh 'source' may be used.
-. "${SRC_DIR}/colors"
+. "${SRC_DIR}/posix-colors"
 
 
 
