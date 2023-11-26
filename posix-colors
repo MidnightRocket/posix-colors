@@ -7,10 +7,8 @@
 # set -eu
 
 
-# CREDITS: posix-colors: https://github.com/MidnightRocket/posix-colors
-isColorSupported() { [ "${FORCE_COLOR:-"false"}" = "true" ] || [ -t 1 ] && [ -t 2 ] && [ "${USE_COLOR:-"true"}" = "true" ]; }
-
-if isColorSupported; then readonly T_USE_COLOR=true; else unset T_USE_COLOR; fi
+# CREDITS: https://github.com/MidnightRocket/posix-colors
+if [ "${FORCE_COLOR:-"false"}" = "true" ] || [ -t 1 ] && [ -t 2 ] && [ "${USE_COLOR:-"true"}" = "true" ]; then readonly T_USE_COLOR=true; else unset T_USE_COLOR; fi
 
 # Need to put this in variable on its own.
 # It cannot be directly in parameter expansion below because then it won't work in bash and ksh
