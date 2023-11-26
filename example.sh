@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+# CREDITS: https://github.com/MidnightRocket/posix-colors
+
+
 SRC_DIR="$(realpath "$(dirname -- "$0")")"
 
 
