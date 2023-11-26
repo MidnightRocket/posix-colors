@@ -115,10 +115,10 @@ t_rgb() {
 # Helper functions for echoing/printing text.
 # printf is fully posix compliant and is generally safer than echo.
 # These auto resets formating
-stderr() {
-	printf "%b${TR}\n" "$@" 1>&2
-}
-
 print() {
 	printf "%b${TR}\n" "$@"
+}
+
+stderr() {
+	print "$@" 1>&2
 }
