@@ -17,13 +17,13 @@ readonly T_ESC="${T_USE_COLOR+"$T_ESC"}"
 
 ###   -----   RESET FORMAT OR COLOR   -----   ###
 readonly TR="${T_ESC}${T_USE_COLOR+"0m"}"
-readonly TR_F="${T_ESC}${T_USE_COLOR+"39m"}"                TR_B="${T_ESC}${T_USE_COLOR+"49m"}"
+readonly TR_F="${T_ESC}${T_USE_COLOR+"39m"}"               TR_B="${T_ESC}${T_USE_COLOR+"49m"}"
 
 # --- These escape codes are not always supported --- #
-# readonly TR_BOLD="${T_ESC}${T_USE_COLOR+"21m"}"             TR_BLINK="${T_ESC}${T_USE_COLOR+"25m"}"
-# readonly TR_DIM="${T_ESC}${T_USE_COLOR+"22m"}"              TR_REVERSE="${T_ESC}${T_USE_COLOR+"27m"}"
-# readonly TR_ITALIC="${T_ESC}${T_USE_COLOR+"23m"}"           TR_HIDDEN="${T_ESC}${T_USE_COLOR+"28m"}"
-# readonly TR_UNDERLINE="${T_ESC}${T_USE_COLOR+"24m"}"        TR_STRIKE="${T_ESC}${T_USE_COLOR+"29m"}"
+# readonly TR_BOLD="${T_ESC}${T_USE_COLOR+"21m"}"            TR_BLINK="${T_ESC}${T_USE_COLOR+"25m"}"
+# readonly TR_DIM="${T_ESC}${T_USE_COLOR+"22m"}"             TR_REVERSE="${T_ESC}${T_USE_COLOR+"27m"}"
+# readonly TR_ITALIC="${T_ESC}${T_USE_COLOR+"23m"}"          TR_HIDDEN="${T_ESC}${T_USE_COLOR+"28m"}"
+# readonly TR_UNDERLINE="${T_ESC}${T_USE_COLOR+"24m"}"       TR_STRIKE="${T_ESC}${T_USE_COLOR+"29m"}"
 
 ###   -----   TEXT FORMATTING   -----   ###
 readonly T_BOLD="${T_ESC}${T_USE_COLOR+"1m"}"              T_BLINK="${T_ESC}${T_USE_COLOR+"5m"}"
