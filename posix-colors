@@ -16,41 +16,23 @@ T_ESC="\033[" # ¯\_(ツ)_/¯
 readonly T_ESC="${T_USE_COLOR+"$T_ESC"}"
 
 ###   -----   RESET FORMAT OR COLOR   -----   ###
-readonly TR="${T_ESC}${T_USE_COLOR+"0m"}"
-readonly TR_F="${T_ESC}${T_USE_COLOR+"39m"}"               TR_B="${T_ESC}${T_USE_COLOR+"49m"}"
+readonly TR="${T_ESC}${T_USE_COLOR+"0m"}"                  TR_F="${T_ESC}${T_USE_COLOR+"39m"}"               TR_B="${T_ESC}${T_USE_COLOR+"49m"}"
 
-# --- These escape codes are not always supported --- #
-# readonly TR_BOLD="${T_ESC}${T_USE_COLOR+"21m"}"            TR_BLINK="${T_ESC}${T_USE_COLOR+"25m"}"
-# readonly TR_DIM="${T_ESC}${T_USE_COLOR+"22m"}"             TR_REVERSE="${T_ESC}${T_USE_COLOR+"27m"}"
-# readonly TR_ITALIC="${T_ESC}${T_USE_COLOR+"23m"}"          TR_HIDDEN="${T_ESC}${T_USE_COLOR+"28m"}"
-# readonly TR_UNDERLINE="${T_ESC}${T_USE_COLOR+"24m"}"       TR_STRIKE="${T_ESC}${T_USE_COLOR+"29m"}"
+# # --- These escape codes are not always supported --- #
+# readonly TR_BOLD="${T_ESC}${T_USE_COLOR+"21m"}"            TR_DIM="${T_ESC}${T_USE_COLOR+"22m"}"             TR_ITALIC="${T_ESC}${T_USE_COLOR+"23m"}"          TR_UNDERLINE="${T_ESC}${T_USE_COLOR+"24m"}"
+# readonly TR_BLINK="${T_ESC}${T_USE_COLOR+"25m"}"           TR_REVERSE="${T_ESC}${T_USE_COLOR+"27m"}"         TR_HIDDEN="${T_ESC}${T_USE_COLOR+"28m"}"          TR_STRIKE="${T_ESC}${T_USE_COLOR+"29m"}"
 
 ###   -----   TEXT FORMATTING   -----   ###
-readonly T_BOLD="${T_ESC}${T_USE_COLOR+"1m"}"              T_BLINK="${T_ESC}${T_USE_COLOR+"5m"}"
-readonly T_DIM="${T_ESC}${T_USE_COLOR+"2m"}"               T_REVERSE="${T_ESC}${T_USE_COLOR+"7m"}"
-readonly T_ITALIC="${T_ESC}${T_USE_COLOR+"3m"}"            T_HIDDEN="${T_ESC}${T_USE_COLOR+"8m"}"
-readonly T_UNDERLINE="${T_ESC}${T_USE_COLOR+"4m"}"         T_STRIKE="${T_ESC}${T_USE_COLOR+"9m"}"
+readonly T_BOLD="${T_ESC}${T_USE_COLOR+"1m"}"              T_DIM="${T_ESC}${T_USE_COLOR+"2m"}"               T_ITALIC="${T_ESC}${T_USE_COLOR+"3m"}"            T_UNDERLINE="${T_ESC}${T_USE_COLOR+"4m"}"
+readonly T_BLINK="${T_ESC}${T_USE_COLOR+"5m"}"             T_REVERSE="${T_ESC}${T_USE_COLOR+"7m"}"           T_HIDDEN="${T_ESC}${T_USE_COLOR+"8m"}"            T_STRIKE="${T_ESC}${T_USE_COLOR+"9m"}"
 
 ###   -----   FOREGROUND COLORS   -----   ###
-readonly TF_BLACK="${T_ESC}${T_USE_COLOR+"30m"}"           TF_WHITE="${T_ESC}${T_USE_COLOR+"97m"}"
-readonly TF_RED="${T_ESC}${T_USE_COLOR+"31m"}"             TF_BRIGHT_RED="${T_ESC}${T_USE_COLOR+"91m"}"
-readonly TF_GREEN="${T_ESC}${T_USE_COLOR+"32m"}"           TF_BRIGHT_GREEN="${T_ESC}${T_USE_COLOR+"92m"}"
-readonly TF_YELLOW="${T_ESC}${T_USE_COLOR+"33m"}"          TF_BRIGHT_YELLOW="${T_ESC}${T_USE_COLOR+"93m"}"
-readonly TF_BLUE="${T_ESC}${T_USE_COLOR+"34m"}"            TF_BRIGHT_BLUE="${T_ESC}${T_USE_COLOR+"94m"}"
-readonly TF_MAGENTA="${T_ESC}${T_USE_COLOR+"35m"}"         TF_BRIGHT_MAGENTA="${T_ESC}${T_USE_COLOR+"95m"}"
-readonly TF_CYAN="${T_ESC}${T_USE_COLOR+"36m"}"            TF_BRIGHT_CYAN="${T_ESC}${T_USE_COLOR+"96m"}"
-readonly TF_DARK_GRAY="${T_ESC}${T_USE_COLOR+"90m"}"       TF_BRIGHT_GRAY="${T_ESC}${T_USE_COLOR+"37m"}"
+readonly TF_BLACK="${T_ESC}${T_USE_COLOR+"30m"}"           TF_RED="${T_ESC}${T_USE_COLOR+"31m"}"             TF_GREEN="${T_ESC}${T_USE_COLOR+"32m"}"           TF_YELLOW="${T_ESC}${T_USE_COLOR+"33m"}"          TF_BLUE="${T_ESC}${T_USE_COLOR+"34m"}"            TF_MAGENTA="${T_ESC}${T_USE_COLOR+"35m"}"         TF_CYAN="${T_ESC}${T_USE_COLOR+"36m"}"            TF_DARK_GRAY="${T_ESC}${T_USE_COLOR+"90m"}"
+readonly TF_WHITE="${T_ESC}${T_USE_COLOR+"97m"}"           TF_BRIGHT_RED="${T_ESC}${T_USE_COLOR+"91m"}"      TF_BRIGHT_GREEN="${T_ESC}${T_USE_COLOR+"92m"}"    TF_BRIGHT_YELLOW="${T_ESC}${T_USE_COLOR+"93m"}"   TF_BRIGHT_BLUE="${T_ESC}${T_USE_COLOR+"94m"}"     TF_BRIGHT_MAGENTA="${T_ESC}${T_USE_COLOR+"95m"}"  TF_BRIGHT_CYAN="${T_ESC}${T_USE_COLOR+"96m"}"     TF_BRIGHT_GRAY="${T_ESC}${T_USE_COLOR+"37m"}"
 
 ###   -----   BACKGROUND COLORS   -----   ###
-readonly TB_BLACK="${T_ESC}${T_USE_COLOR+"40m"}"           TB_WHITE="${T_ESC}${T_USE_COLOR+"107m"}"
-readonly TB_RED="${T_ESC}${T_USE_COLOR+"41m"}"             TB_BRIGHT_RED="${T_ESC}${T_USE_COLOR+"101m"}"
-readonly TB_GREEN="${T_ESC}${T_USE_COLOR+"42m"}"           TB_BRIGHT_GREEN="${T_ESC}${T_USE_COLOR+"102m"}"
-readonly TB_YELLOW="${T_ESC}${T_USE_COLOR+"43m"}"          TB_BRIGHT_YELLOW="${T_ESC}${T_USE_COLOR+"103m"}"
-readonly TB_BLUE="${T_ESC}${T_USE_COLOR+"44m"}"            TB_BRIGHT_BLUE="${T_ESC}${T_USE_COLOR+"104m"}"
-readonly TB_MAGENTA="${T_ESC}${T_USE_COLOR+"45m"}"         TB_BRIGHT_MAGENTA="${T_ESC}${T_USE_COLOR+"105m"}"
-readonly TB_CYAN="${T_ESC}${T_USE_COLOR+"46m"}"            TB_BRIGHT_CYAN="${T_ESC}${T_USE_COLOR+"106m"}"
-readonly TB_DARK_GRAY="${T_ESC}${T_USE_COLOR+"100m"}"      TB_BRIGHT_GRAY="${T_ESC}${T_USE_COLOR+"47m"}"
-
+readonly TB_BLACK="${T_ESC}${T_USE_COLOR+"40m"}"           TB_RED="${T_ESC}${T_USE_COLOR+"41m"}"             TB_GREEN="${T_ESC}${T_USE_COLOR+"42m"}"           TB_YELLOW="${T_ESC}${T_USE_COLOR+"43m"}"          TB_BLUE="${T_ESC}${T_USE_COLOR+"44m"}"            TB_MAGENTA="${T_ESC}${T_USE_COLOR+"45m"}"         TB_CYAN="${T_ESC}${T_USE_COLOR+"46m"}"            TB_DARK_GRAY="${T_ESC}${T_USE_COLOR+"100m"}"
+readonly TB_WHITE="${T_ESC}${T_USE_COLOR+"107m"}"          TB_BRIGHT_RED="${T_ESC}${T_USE_COLOR+"101m"}"     TB_BRIGHT_GREEN="${T_ESC}${T_USE_COLOR+"102m"}"   TB_BRIGHT_YELLOW="${T_ESC}${T_USE_COLOR+"103m"}"  TB_BRIGHT_BLUE="${T_ESC}${T_USE_COLOR+"104m"}"    TB_BRIGHT_MAGENTA="${T_ESC}${T_USE_COLOR+"105m"}" TB_BRIGHT_CYAN="${T_ESC}${T_USE_COLOR+"106m"}"    TB_BRIGHT_GRAY="${T_ESC}${T_USE_COLOR+"47m"}"
 
 
 
