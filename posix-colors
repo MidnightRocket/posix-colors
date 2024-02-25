@@ -8,7 +8,7 @@
 
 
 # CREDITS: https://github.com/MidnightRocket/posix-colors
-if [ "${FORCE_COLOR:-"false"}" = "true" ] || [ -t 1 ] && [ -t 2 ] && [ "${USE_COLOR:-"true"}" = "true" ]; then readonly T_USE_COLOR=true; else unset T_USE_COLOR; fi
+if [ -z "${NO_COLOR+x}" ] && { [ -t 1 ] && [ -t 2 ] || [ -n "${CLICOLOR_FORCE+x}" ];} ; then readonly T_USE_COLOR=true; else unset T_USE_COLOR; fi
 
 # Need to put this in variable on its own.
 # It cannot be directly in parameter expansion below because then it won't work in bash and ksh
@@ -108,10 +108,5 @@ t_rgb() {
 # Helper functions for echoing/printing text.
 # printf is fully posix compliant and is generally safer than echo.
 # These auto resets formating
-print() {
-	printf "%b${TR}\n" "$@"
-}
-
-stderr() {
-	print "$@" 1>&2
-}
+print() { printf "%b%b" "${1-""}" "${2-"${TR}\\n"}"; }
+stderr() { print "$@" 1>&2; }
