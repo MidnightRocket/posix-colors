@@ -16,36 +16,37 @@ However this behaviour can be customised. [See below](#controlling-auto-coloring
 > [!TIP]
 > See [example.sh](example.sh) for how to use. 
 
-You can either simply copy the [contents of colors](colors#L9-L59) into your script.
+You can either simply copy the [contents of posix-colors](posix-colors#L10-L52) into your script.
 Or you can download this repo and source the file like so:
 ```sh
-. /path/to/colors
+. /path/to/posix-colors
 ```
 
 Or for bash and zsh you alternatively use:
 ```bash
-source /path/to/colors
+source /path/to/posix-colors
 ```
 
 
 ## Controlling auto coloring
-
-As mentioned above this script supports automatic coloring depend on whether or not output is a tty.  
-This means when viewing output from the script directly colors will be displayed.  
+As mentioned above this script supports automatic coloring depending on whether or not output is a tty.  
+This means when viewing output from the script directly, colors will be displayed.  
 But when redirecting to a file or piping to other programs the color escape codes are automatically disabled.
-So you won't get those weird escape sequences. 
+So you won't get those weird escape sequences.  
 
-However if `FORCE_COLOR=true` is set in the environment before the script is run or sourced, 
+It follows the standard proposed [here: clicolors](https://bixense.com/clicolors/)  
+
+That means if `CLICOLOR_FORCE` is set in the environment before the script is run or sourced, 
 then the color escape sequences are always used.
 For instance seeing color with less:
 ```sh
-FORCE_COLOR=true ./example.sh | less -R
+CLICOLOR_FORCE=true ./example.sh | less -R
 ```
 
-Conversely can color output be completely disabled regardless of tty by setting `USE_COLOR=false`
+Conversely can color output be completely disabled regardless of tty by setting `NO_COLOR` env variable:
 
 ```sh
-USE_COLOR=false ./example.sh
+NO_COLOR=true ./example.sh
 ```
 
 

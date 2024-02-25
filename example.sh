@@ -1,12 +1,15 @@
 #!/bin/sh
 set -eu
 
+# CREDITS: https://github.com/MidnightRocket/posix-colors
+
+
 SRC_DIR="$(realpath "$(dirname -- "$0")")"
 
 
 # In POSIX comliant script is '.' equivlant to the 'source' command
 # However if using bash or zsh 'source' may be used.
-. "${SRC_DIR}/colors"
+. "${SRC_DIR}/posix-colors"
 
 
 
@@ -57,38 +60,77 @@ print "\n\n--- ${T_BOLD}8 BIT COLOR TEST${TR} ----"
 # Adapted from https://askubuntu.com/a/821163
 i=0 
 while [ "$i" -lt 256 ]; do
-	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR} " "$i"
-	if [ "$i" = 15 ]; then
-		printf "\n\n";
-	fi
-	if [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
+	printf "${T_REVERSE}$(t_color fg $i)color_%03d${TR}" "$i"
+	if [ "$i" = 7 ]; then
 		printf "\n";
+	elif [ "$i" = 15 ]; then
+		printf "\n\n";
+	elif [ "$i" -gt 15 ] && [ $(((i - 15) % 6))  = 0 ]; then
+		printf "\n";
+	else
+		printf " "
 	fi
 	i="$((i+1))"
 done
+
+
+
+
+_print_test_block() {
+	printf "%b" "$(t_rgb bg "$1" "$2" "$3") "
+}
 
 
 
 print "\n\n--- ${T_BOLD}24 BIT TRUE COLOR TEST${TR} ----"
 # Inspired by https://unix.stackexchange.com/a/404415
-i=0
 COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=$((255-(i*255/COLUMNS)));
-	g=$((i*510/COLUMNS));
-	b=$((i*255/COLUMNS));
-	if [ "$g" -gt 255 ]; then g=$((510-g)); fi
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
-	i="$((i+1))"
-done
-print
-i=0
-COLUMNS="$(stty size | awk '{print $2}' || echo 80)"
-while [ "$i" -lt "$COLUMNS" ]; do
-	r=$((i*255/COLUMNS));
-	g=$((i*255/COLUMNS));
-	b=$((i*255/COLUMNS));
-	printf "%b" "$(t_rgb bg "$r" "$g" "$b") "
-	i="$((i+1))"
-done
-print
+print_rgb_gradient() {
+	_MAX_VALUE="${1:-"255"}"
+	i=0
+	while [ "$i" -lt "$COLUMNS" ]; do
+		v=$((i * _MAX_VALUE / COLUMNS))
+		r=$((_MAX_VALUE - v));
+		g=$((2*v));
+		b=$((v));
+		if [ "$g" -gt "$_MAX_VALUE" ]; then g=$((_MAX_VALUE * 2 - g)); fi
+		_print_test_block "$r" "$g" "$b"
+		i="$((i+1))"
+	done
+	print
+}
+print_rgb_gradient
+
+print_line() {
+	_MAX_VALUE="${4:-"255"}"
+	x=0
+	while [ "$x" -lt "$COLUMNS" ]; do
+		# shellcheck disable=SC2034
+		v=$((x*_MAX_VALUE/COLUMNS))
+		r=$(($1));
+		g=$(($2));
+		b=$(($3));
+		_print_test_block "$r" "$g" "$b"
+		x="$((x+1))"
+	done
+	print
+}
+
+# Alternative RGB gradient printing
+print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v"
+
+# Grayscale
+print_line "v" "v" "v"
+
+# Individual RGB gradients
+print_line "v" "0" "0"
+print_line "0" "v" "0"
+print_line "0" "0" "v"
+
+
+# ROWS="$(stty size | awk '{print $1}' || echo 50)"
+# y=0
+# while [ "$y" -lt "$ROWS" ]; do
+# 	print_line "_MAX_VALUE - v" "( ( (v*2) > _MAX_VALUE ) ? _MAX_VALUE - v : v ) * 2" "v" "$((255 - 255/ROWS*y))"
+# 	y="$((y+1))"
+# done
